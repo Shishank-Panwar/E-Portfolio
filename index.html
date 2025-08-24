@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head> <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shishank Panwar | Visual Designer</title> <!-- Google Fonts: Modern & Sketchy -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Permanent+Marker&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+        <!-- New Stylesheet --> <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+            <!-- Pulsing background elements -->
+<div class="background-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+
+<!-- Navigation Bar -->
+<nav class="glass-nav reveal">
+    <a href="index.html" class="nav-logo">SP</a>
+    <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="learning.html">Learning</a></li>
+        <li><a href="video.html">Video</a></li>
+        <li><a href="explore.html">Explore</a></li>
+    </ul>
+</nav>
+
+<!-- Main Page Content (This is targeted by the 3D tilt script) -->
+<main class="page-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content reveal">
+            <h1 class="neon-text">
+                <span class="intro-text">Hi, I’m</span>
+                Shishank Pawar
+            </h1>
+            <p class="tagline">
+                <span class="sketchy-highlight">Visual Designer</span> · Problem Solver · Storyteller
+            </p>
+            <p class="description">
+                I craft clear, bold visuals for brands and products. From identity systems to social campaigns, my focus is on design that communicates with intent and looks sharp across every screen.
+            </p>
+            <!-- Sketchy divider (This is targeted by the drawing animation) -->
+            <div class="sketchy-divider">
+                <svg width="200" height="20" viewBox="0 0 200 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 10.5C26.6667 18.1667 86.2 2.7 100 10.5C118 20.5 174.4 2.1 198 10.5" stroke="cyan" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <div class="section-divider reveal"></div>
+    <section class="skills-section reveal">
+        <h2 class="section-title neon-text-alt">What I Do</h2>
+        <div class="skills-grid">
+            <!-- Skill Card 1 -->
+            <div class="skill-card">
+                <div class="card-content">
+                    <h3>Brand Design</h3>
+                    <p>Logos, color systems, and brand toolkits that scale—from pitch decks to packaging and social presence.</p>
+                </div>
+            </div>
+            <!-- Skill Card 2 -->
+            <div class="skill-card">
+                 <div class="card-content">
+                    <h3>Creative Strategy</h3>
+                    <p>Translating goals into concepts, moodboards, and campaigns that align business aims with audience needs.</p>
+                </div>
+            </div>
+            <!-- Skill Card 3 -->
+            <div class="skill-card">
+                 <div class="card-content">
+                    <h3>Content & Social</h3>
+                    <p>Designing scroll-stopping visuals and short-form narratives tailored for platforms and performance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="navigation-link-section reveal">
+        <h2 class="section-title neon-text-alt">See My Learning Path</h2>
+        <p>Browse labs, tasks, and outcomes documenting how I approach skills and projects step by step.</p>
+        <a href="learning.html" class="btn-card">Go to Learning Page</a>
+    </section>
+</main>
+
+<!-- New JavaScript -->
+<script src="script.js"></script>
+</body>
+
+</html>

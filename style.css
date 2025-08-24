@@ -1,0 +1,1054 @@
+/* style.css */
+
+/* --- 1. Root Variables & Base Styles --- */
+:root {
+    --bg-color: #0a0a14; /* Deep space blue */
+    --text-color: #e0e0e0;
+    --neon-primary: #00ffff; /* Cyan */
+    --neon-secondary: #ff00ff; /* Magenta */
+    --shadow-color: rgba(0, 255, 255, 0.2);
+    --glass-bg: rgba(20, 20, 40, 0.4);
+
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-sketchy: 'Permanent Marker', cursive;
+}
+
+body {
+    /* ... existing styles ... */
+    perspective: 1500px; /* Adds depth for 3D transforms */
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative; /* Needed for background blobs */
+}
+
+/* --- 2. NEW Animated Starfield Background --- */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(1px 1px at 20px 30px, #eee, transparent),
+        radial-gradient(1px 1px at 40px 70px, #fff, transparent),
+        radial-gradient(1px 1px at 50px 160px, #ddd, transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+        radial-gradient(2px 2px at 130px 80px, #fff, transparent),
+        radial-gradient(2px 2px at 160px 120px, #ddd, transparent);
+    background-repeat: repeat;
+    background-size: 200px 200px; /* The area of the repeating star pattern */
+    z-index: -1;
+    opacity: 0;
+    animation: 
+        move-stars 15s linear infinite, /* The scrolling animation */
+        show-stars 2s 1s forwards;    /* The initial fade-in animation */
+}
+
+/* This keyframe handles the continuous scrolling of the stars */
+@keyframes move-stars {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(-200px); /* Moves the pattern up by one tile length */
+    }
+}
+
+/* This keyframe handles the initial gentle fade-in of the background */
+@keyframes show-stars {
+    to {
+        opacity: 0.6;
+    }
+}
+
+
+/* --- 3. Navigation Bar (Glassmorphism) --- */
+/* --- 3. UPDATED Navigation Bar (Solid & Sleek) --- */
+/* --- 3. NEW Animated & Interactive Navigation Bar --- */
+/* --- 3. UPDATED Animated Navigation Bar --- */
+.glass-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 5%;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease;
+}
+
+/* --- Navigation Text Styling --- */
+.nav-logo,
+.glass-nav a {
+    /* Create a gradient background for the text */
+    background: linear-gradient(270deg,
+        var(--neon-primary),
+        #fff,
+        var(--neon-secondary),
+        var(--neon-primary)
+    );
+    background-size: 400% 400%;
+    /* Clip the background to the text shape */
+    -webkit-background-clip: text;
+    background-clip: text;
+    /* Make the text color transparent to show the gradient */
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    /* Add a subtle stroke for definition */
+    -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.1);
+    text-stroke: 0.5px rgba(255, 255, 255, 0.1);
+    /* Animate the gradient position to create a shimmer */
+    animation: textGradient 8s ease infinite;
+}
+
+@keyframes textGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.nav-logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.glass-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+/* --- Nav Loading Animation --- */
+.glass-nav li {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* This class will be added by JavaScript to trigger the animation */
+.glass-nav li.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.glass-nav a {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.glass-nav a:hover,
+.glass-nav a.active {
+    border-bottom-color: var(--neon-primary); /* Keep simple underline for hover/active */
+}
+
+/* --- 4. Main Content & Sections --- */
+.page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 120px 2rem 50px;
+    transform-style: preserve-3d; /* Ensures children obey the 3D perspective */
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smooths the tilt effect */
+}
+
+
+
+.hero-section, .skills-section {
+    margin-bottom: 6rem;
+}
+
+/* --- 5. Typography & Neon/Sketchy Effects --- */
+.neon-text {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    color: #fff;
+    text-shadow: 
+        0 0 5px var(--neon-primary), 
+        0 0 15px var(--neon-primary), 
+        0 0 30px var(--neon-primary),
+        0 0 50px var(--neon-secondary);
+    animation: neon-flicker 3s infinite alternate;
+}
+
+.neon-text .intro-text {
+    font-size: 1.5rem;
+    display: block;
+    color: var(--text-color);
+    text-shadow: none;
+    animation: none;
+    font-weight: 400;
+    margin-bottom: -10px;
+}
+
+.neon-text-alt {
+    color: var(--neon-secondary);
+    text-shadow:
+        0 0 5px var(--neon-secondary),
+        0 0 10px var(--neon-secondary);
+}
+
+.tagline {
+    font-size: 1.25rem;
+    margin: 1rem 0;
+}
+
+.sketchy-highlight {
+    font-family: var(--font-sketchy);
+    font-size: 1.3em; /* Make it slightly bigger */
+    color: var(--neon-primary);
+    text-shadow: 0 0 3px var(--neon-primary);
+    background: rgba(0, 255, 255, 0.1);
+    padding: 0.1em 0.3em;
+    border-radius: 5px;
+}
+
+.description {
+    max-width: 600px;
+    font-size: 1.1rem;
+    color: #b0b0c0;
+    margin-bottom: 2rem;
+}
+
+.sketchy-divider svg path {
+    stroke-dasharray: 200; /* Approx length of the path */
+    stroke-dashoffset: 200; /* Hides the path initially */
+    animation: draw-line 2s ease-out 1s forwards; /* 'forwards' keeps it drawn */
+    filter: drop-shadow(0 0 5px var(--neon-primary));
+}
+
+@keyframes draw-line {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+
+
+/* --- 6. Skills Section & Cards --- */
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.skill-card {
+    background: var(--glass-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0, 255, 255, 0.15), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-8px) rotateY(8deg); /* Flips the card slightly in 3D space */
+    box-shadow: 0 10px 40px var(--shadow-color);
+}
+
+
+.skill-card:hover::before {
+    opacity: 1;
+}
+
+.card-content {
+    padding: 2rem;
+    position: relative; /* To be on top of the ::before pseudo-element */
+    z-index: 1;
+}
+
+.skill-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.skill-card p {
+    font-size: 1rem;
+    color: #b0b0c0;
+}
+
+
+/* --- 7. Footer --- */
+.site-footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+    color: #888;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- 8. Animations & Transitions --- */
+@keyframes neon-flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow:
+            0 0 4px var(--neon-primary),
+            0 0 11px var(--neon-primary),
+            0 0 19px var(--neon-primary),
+            0 0 40px var(--neon-secondary),
+            0 0 80px var(--neon-secondary);
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+    }
+}
+
+/* --- 9. Responsive Design --- */
+@media (max-width: 768px) {
+    .glass-nav {
+        padding: 1rem;
+    }
+
+    .nav-logo {
+        font-size: 1.5rem; /* Make logo slightly smaller */
+    }
+
+    .glass-nav ul {
+        gap: 1rem; /* Reduce gap between links */
+    }
+
+    .glass-nav a {
+        font-size: 0.9rem; /* Make link text smaller */
+    }
+
+    .page-container {
+        padding-top: 100px; /* Adjusted for the new, shorter nav on mobile */
+    }
+    
+    .neon-text .intro-text {
+        font-size: 1.2rem;
+    }
+}
+
+
+/* Reveal on Scroll Animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- 9. Responsive Design --- */
+@media (max-width: 768px) {
+    .glass-nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+        border-radius: 20px;
+    }
+    .neon-text .intro-text {
+        font-size: 1.2rem;
+    }
+    .page-container {
+        padding-top: 200px;
+    }
+}
+
+/* --- 10. NEW: Section Divider & Mouse Trail --- */
+
+/* Glowing Section Divider */
+.section-divider {
+    height: 2px;
+    width: 70%;
+    margin: 5rem auto; /* Creates 5rem of space above and below */
+    background: linear-gradient(90deg, transparent, var(--neon-primary), transparent);
+    box-shadow: 0 0 15px var(--shadow-color);
+    border-radius: 2px;
+    opacity: 0.8;
+}
+
+
+/* Mouse Trail Particle Effect */
+.trail-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--neon-primary);
+    box-shadow: 0 0 10px var(--neon-primary), 0 0 20px var(--neon-secondary);
+    pointer-events: none; /* Prevents trail from interfering with clicks */
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    animation: trail-fade 0.8s ease-out forwards;
+}
+
+@keyframes trail-fade {
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+}
+
+/* --- 11. NEW: Learning Page Styles --- */
+
+/* --- 11. UPDATED: Learning Page Styles (Timeline) --- */
+
+/* --- Button Card Style --- */
+
+.btn-card {
+    display: inline-block;
+    background: transparent;
+    border: 2px solid var(--neon-primary);
+    color: var(--neon-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px; /* Creates the pill shape */
+    text-decoration: none;
+    font-weight: 700;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s, text-shadow 0.3s;
+}
+
+.btn-card:hover {
+    background-color: var(--neon-primary); /* Fills with color on hover */
+    color: var(--bg-color); /* Changes text to the dark background color */
+    text-shadow: none; /* Removes the text glow for better contrast */
+}
+
+.learning-hero {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.timeline {
+    list-style: none;
+    padding: 0;
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* The central timeline spine */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--neon-primary), var(--neon-secondary), transparent);
+    box-shadow: 0 0 10px var(--shadow-color);
+    border-radius: 3px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 4rem;
+    width: 50%;
+}
+
+/* Position items on alternating sides */
+.timeline-item:nth-child(odd) {
+    left: 0;
+    padding-right: 3rem;
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+    padding-left: 3rem;
+}
+
+/* The content card */
+.timeline-content {
+    background: var(--glass-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 0; /* Hidden by default for animation */
+}
+
+.timeline-title {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--neon-primary);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 4px var(--neon-primary);
+}
+
+.timeline-content p {
+    color: #b0b0c0;
+    margin-bottom: 1.5rem;
+}
+
+/* The glowing node on the timeline */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    top: 1.5rem;
+    right: -9px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--neon-primary);
+    border: 3px solid var(--bg-color);
+    box-shadow: 0 0 15px var(--neon-primary);
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.timeline-item:nth-child(even)::after {
+    left: -9px;
+}
+
+.timeline-item:hover::after {
+    transform: scale(1.3);
+}
+
+/* --- Timeline Reveal Animations --- */
+.timeline-item.visible.from-left .timeline-content {
+    transform: translateX(0);
+    opacity: 1;
+}
+.timeline-item.from-left .timeline-content {
+    transform: translateX(-30px);
+}
+
+.timeline-item.visible.from-right .timeline-content {
+    transform: translateX(0);
+    opacity: 1;
+}
+.timeline-item.from-right .timeline-content {
+    transform: translateX(30px);
+}
+
+/* Responsive adjustments for a single column layout */
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 20px; /* Move spine to the left */
+    }
+    .timeline-item,
+    .timeline-item:nth-child(even) {
+        width: 100%;
+        left: 0;
+        padding-left: 50px; /* Space for the spine and node */
+        padding-right: 1rem;
+    }
+    .timeline-item::after,
+    .timeline-item:nth-child(even)::after {
+        left: 11px; /* Align node with the spine */
+    }
+}
+
+
+/* --- 12. NEW: Navigation Link Section --- */
+
+.navigation-link-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    margin-top: 4rem; /* Adds space above this section */
+    background: rgba(10, 10, 20, 0.4); /* Subtle background to make it distinct */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+.navigation-link-section h2 {
+    margin-bottom: 1rem;
+}
+
+.navigation-link-section p {
+    color: #b0b0c0;
+    max-width: 500px;
+    margin: 0 auto 2.5rem auto; /* Center the paragraph and add space below */
+}
+
+/* --- 13. NEW: Lab Detail Page Styles --- */
+
+.lab-hero {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.lab-content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.content-block {
+    background: var(--glass-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.content-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px var(--shadow-color);
+}
+
+.block-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--neon-primary);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.content-block p,
+.content-block ul {
+    color: #b0b0c0;
+    line-height: 1.7;
+}
+
+.content-block ul {
+    list-style-position: inside;
+    padding-left: 0.5rem;
+}
+
+.content-block li {
+    margin-bottom: 0.75rem;
+}
+
+/* --- Updated from .back-link-container --- */
+.lab-navigation-container {
+    display: flex;
+    justify-content: space-between; /* Pushes buttons to each side */
+    align-items: center;
+    flex-wrap: wrap; /* Allows buttons to stack on small screens */
+    gap: 1rem;
+    margin-top: 4rem;
+}
+
+/* If there is only one button, center it */
+.lab-navigation-container:has(:last-child:first-child) {
+    justify-content: center;
+}
+
+/* --- 14. UPDATED: Video Page Styles (Bento Grid) --- */
+/* --- 14. UPDATED: Video Page Styles (9:16 Bento Grid) --- */
+.video-hero {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+/* The Bento Grid Container - NEW 4-COLUMN LAYOUT */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Switched to 4 columns for flexibility */
+    grid-template-rows: auto;
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Base style for all grid items */
+.grid-item {
+    background: var(--glass-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grid-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px var(--shadow-color);
+}
+
+/* --- Specific Grid Item Layouts --- */
+
+/* Main video is now tall and in the center */
+.video-main {
+    grid-column: 2 / span 2; /* Occupies the 2 middle columns */
+    grid-row: 1 / span 3;    /* Spans 3 rows to be tall */
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Description card is now in the first column, spanning 2 rows */
+.description-card {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 2;
+}
+
+/* NEW: Styles to position each stat card individually */
+.stat-1 {
+    grid-column: 4 / span 1; /* Top right */
+    grid-row: 1 / span 1;
+}
+.stat-2 {
+    grid-column: 4 / span 1; /* Middle right */
+    grid-row: 2 / span 1;
+}
+.stat-3 {
+    grid-column: 4 / span 1; /* Bottom right */
+    grid-row: 3 / span 1;
+}
+
+
+/* --- Content Styling --- */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* KEY CHANGE: Aspect ratio for 9:16 video. (16 / 9) * 100% = 177.78% */
+    padding-bottom: 177.78%; 
+}
+
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    object-fit: cover; /* Ensures video fills the container */
+}
+
+.description-card h3,
+.stat-card h4 {
+    font-family: var(--font-heading);
+    color: var(--neon-primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 3px var(--neon-primary);
+}
+
+.stat-card h4 {
+    font-size: 1.25rem;
+}
+
+.description-card p,
+.stat-card p {
+    color: #b0b0c0;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Responsive adjustments for smaller screens (This part remains the same and works well) */
+@media (max-width: 768px) {
+    .video-grid {
+        grid-template-columns: 1fr; /* Stack everything in a single column */
+    }
+
+    .video-main,
+    .description-card,
+    .stat-card {
+        grid-column: span 1; /* Reset all spans */
+        grid-row: span 1;
+    }
+}
+
+
+/* --- 15. NEW: Explore Page Styles --- */
+
+/* --- 15. UPDATED: Explore Page Styles with Images --- */
+
+/* ... (explore-hero and about-section styles remain the same) ... */
+
+/* UPDATED Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    background: var(--glass-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden; /* Important for containing the image */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 0 30px var(--shadow-color);
+}
+
+.card-image-container {
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image covers the area without distortion */
+    transition: transform 0.4s ease;
+}
+
+.project-card:hover .card-image-container img {
+    transform: scale(1.1); /* Zoom effect on hover */
+}
+
+.card-text-content {
+    padding: 1.5rem;
+}
+
+.project-card h3 {
+    font-family: var(--font-heading);
+    color: var(--neon-primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.project-card p {
+    color: #b0b0c0;
+}
+
+/* ... (achievements styles remain the same) ... */
+
+
+/* --- NEW Styles for Certificates Section (Add after achievements styles) --- */
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.certificate-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.certificate-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 40px var(--shadow-color);
+}
+
+.certificate-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.certificate-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.certificate-card:hover .certificate-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- 16. NEW: Contact Section --- */
+
+.contact-section p {
+    color: #b0b0c0;
+    max-width: 500px;
+    margin: 1rem auto 2.5rem auto;
+}
+
+.contact-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.contact-links a {
+    color: #b0b0c0; /* Start with a subtle color */
+    transition: color 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+}
+
+.contact-links a:hover {
+    color: var(--neon-primary);
+    transform: translateY(-5px);
+    filter: drop-shadow(0 0 10px var(--neon-primary));
+}
+
+/* --- 17. NEW: End-of-Page Gesture Design --- */
+
+.end-of-page-gesture {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    pointer-events: none; /* Prevents it from interfering with clicks */
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+}
+
+/* The glowing orb */
+.end-of-page-gesture::before {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--neon-primary);
+    box-shadow: 
+        0 0 15px var(--neon-primary),
+        0 0 30px var(--neon-primary),
+        0 0 50px var(--neon-secondary);
+    animation: pulse-glow 2.5s infinite ease-in-out;
+}
+
+/* The text hint */
+.end-of-page-gesture span {
+    color: #888;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+/* Keyframe for the pulsing animation */
+@keyframes pulse-glow {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+/* Fade out when user scrolls to the absolute bottom (handled via JS or CSS scroll-timeline in future) */
+body:has(scroll-end) .end-of-page-gesture {
+    opacity: 0;
+}
+
+/* --- 18. NEW: Special Animated Floral Divider --- */
+
+.special-divider-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5rem 0;
+    overflow: hidden; /* Ensures animation looks clean */
+}
+
+.floral-divider path {
+    stroke-dasharray: 600; /* A value longer than the path */
+    stroke-dashoffset: 600; /* Hides the path initially */
+    filter: drop-shadow(0 0 8px var(--neon-primary));
+    animation: draw-vine 3s ease-out forwards;
+}
+
+/* Delay the leaf animation slightly */
+.floral-divider .leaves path {
+    animation-delay: 1s;
+}
+
+@keyframes draw-vine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* --- 19. NEW: Full-Screen Tap Glow Effect --- */
+
+/* This pseudo-element creates the border that will flash.
+   We use ::before since ::after is used by the starfield. */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none; /* Makes the overlay unclickable */
+    z-index: 9999;
+    border: 4px solid transparent;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.8s ease;
+}
+
+/* The class added by JS triggers the animation */
+body.screen-lit::before {
+    animation: screen-flash-glow 1.2s ease-out;
+}
+
+@keyframes screen-flash-glow {
+    0% {
+        opacity: 1;
+        border-color: var(--neon-primary);
+        box-shadow: 
+            inset 0 0 25px var(--shadow-color), /* Inner glow */
+            0 0 25px var(--shadow-color);       /* Outer glow */
+    }
+    50% {
+        border-color: var(--neon-secondary);
+        box-shadow: 
+            inset 0 0 40px rgba(255, 0, 255, 0.5), /* Brighter magenta inner glow */
+            0 0 40px rgba(255, 0, 255, 0.5);       /* Brighter magenta outer glow */
+    }
+    100% {
+        opacity: 0;
+        border-color: transparent;
+        box-shadow: none;
+    }
+}
+
